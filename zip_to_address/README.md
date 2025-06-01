@@ -23,9 +23,15 @@
 
 ## 次のステップ（発展アイデア）
 
-1. 全角で入力された場合にも対応する
-2. エラー表示をUI上で明示的にする（フォーム下部への表示など）。
+1. エラー表示をポップアップではなく、郵便番号入力欄の下にしてください
+2. エラーメッセージを赤文字にしてください
+3. 全角で入力された場合にも対応してください
 
 ## クレジット
 
 * 郵便番号API: [madefor/postal-code-api](https://madefor.github.io/postal-code-api/)
+
+## 参考資料
+
+* [fetch() メソッド](https://developer.mozilla.org/ja/docs/Web/API/Window/fetch)
+* [JavaScript の非同期処理と Promise](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Using_promises)

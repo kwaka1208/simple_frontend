@@ -28,23 +28,29 @@
 
   <script>
     document.getElementById("zipcode").addEventListener("blur", function() {
+      const errorDiv = document.getElementById("error-message");
+      errorDiv.textContent = "";
       const zipcode = this.value.replace(/[^0-9]/g, "");
       if (zipcode.length !== 7) {
-        alert("郵便番号は7桁で入力してください。");
+        errorDiv.textContent = "郵便番号は7桁で入力してください。";
         return;
       }
       const zip3 = zipcode.slice(0, 3);
       const zip4 = zipcode.slice(3);
       const apiUrl = `https://madefor.github.io/postal-code-api/api/v1/${zip3}/${zip4}.json`;
 
+
       fetch(apiUrl)
         .then(response => {
-          if (!response.ok) throw new Error("APIリクエストに失敗しました。");
+          if (!response.ok) {
+            errorDiv.textContent = "サーバーからの応答に失敗しました。しばらくしてから再度お試しください。";
+            throw new Error("APIリクエストに失敗しました。");
+          }
           return response.json();
         })
         .then(data => {
           if (!data || !data.data || data.data.length === 0) {
-            alert("住所情報が見つかりませんでした。");
+            errorDiv.textContent = "住所情報が見つかりませんでした。";
             return;
           }
           const address = data.data[0].ja;
@@ -55,7 +61,9 @@
         })
         .catch(error => {
           console.error("エラー:", error);
-          alert("住所の取得中にエラーが発生しました。");
+          if (!errorDiv.textContent) {
+            errorDiv.textContent = "住所の取得中にエラーが発生しました。";
+          }
         });
     });
   </script>
